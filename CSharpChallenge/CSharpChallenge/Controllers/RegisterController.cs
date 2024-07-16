@@ -1,6 +1,9 @@
 ﻿using CSharpChallenge.Models;
 using CSharpChallenge.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CSharpChallenge.Controllers
 {
@@ -11,20 +14,35 @@ namespace CSharpChallenge.Controllers
             return View();
         }
 
-        public IActionResult ProcessRegistration(UserModel userModel)
+        public async Task<IActionResult> Register(UserModel user)
         {
             SecurityService securityService = new SecurityService();
 
-            if (securityService.AreValidRegistrationDetails(userModel))
+            if (securityService.AreValidRegistrationDetails(user))
             {
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.UserName) };
+
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity));
+
                 UsersDAO usersDAO = new UsersDAO();
-                usersDAO.CreateUser(userModel);
-                return View("testPage", userModel);
+                usersDAO.CreateUser(user);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else if(securityService.DoesUserNameExist(user))
+            {
+                ModelState.AddModelError("UserName", "Username already exists.");
             }
             else
             {
-                return View("InvalidRegistration", userModel);
+                ModelState.AddModelError("Email", "Email already exists.");
             }
+            return View("Index", user);
         }
     }
 }
