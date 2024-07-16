@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace CSharpChallenge
 {
     public class Program
@@ -8,6 +10,12 @@ namespace CSharpChallenge
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/Home/Index";
+                options.LogoutPath = "/Login/Index";
+            });
 
             var app = builder.Build();
 
@@ -28,7 +36,7 @@ namespace CSharpChallenge
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Login}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
