@@ -119,5 +119,37 @@ namespace CSharpChallenge.Services
                 }
             }
         }
+
+        public UserModel GetUserByName(string username)
+        {
+            UserModel userModel = null;
+            string sqlStatement = "SELECT * FROM dbo.Users WHERE username = @username";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(sqlStatement, connection);
+                cmd.Parameters.Add("@username", System.Data.SqlDbType.VarChar, 40).Value = username;
+
+                connection.Open();
+
+                
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        userModel = new UserModel
+                        {
+                            UserID = reader.GetInt32(0),
+                            UserName = reader.GetString(1),
+                            Password = reader.GetString(2),
+                            Email = reader.GetString(3),
+                            Admin = reader.GetBoolean(4)
+                        };
+                    }
+                }
+
+            }
+            return userModel;
+        }
     }
 }
