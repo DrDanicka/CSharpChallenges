@@ -20,3 +20,23 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.btn-blue {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.btn-blue:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+
+.navbar-text {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 0 15px; 
+}
