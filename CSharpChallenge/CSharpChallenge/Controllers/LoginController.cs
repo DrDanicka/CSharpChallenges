@@ -22,7 +22,13 @@ namespace CSharpChallenge.Controllers
 
             if (securityService.IsValidLogin(user))
             {
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.UserName) };
+                UsersDAO usersDAO = new UsersDAO();
+                var LoggedUser = usersDAO.GetUserByName(user.UserName);
+
+                var claims = new List<Claim> { 
+                    new Claim(ClaimTypes.Name, LoggedUser.UserName) ,
+                    new Claim(ClaimTypes.Role, LoggedUser.Admin ? "Admin" : "User") // Add role claim based on user.Admin
+                };
 
                 var claimsIdentity = new ClaimsIdentity(
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
