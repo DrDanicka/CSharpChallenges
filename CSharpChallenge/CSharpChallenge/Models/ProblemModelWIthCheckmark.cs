@@ -1,4 +1,6 @@
-﻿namespace CSharpChallenge.Models
+﻿using System.ComponentModel;
+
+namespace CSharpChallenge.Models
 {
     public class ProblemModelWIthCheckmark
     {
@@ -8,6 +10,7 @@
         public string Difficulty { get; set; }
         public string ExampleTestCase { get; set; }
         public string ExampleTestCaseSolution { get; set; }
+        [DisplayName("Solved")]
         public bool Done { get; set; }
     }
 }
