@@ -6,6 +6,8 @@ namespace CSharpChallenge.Services
     public class UsersDAO
     {
         string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CSharpChallenges;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        //string connectionString = @"Data Source=charpchallenges.database.windows.net;Initial Catalog=csharpchallenges;User ID=drdanicka;Password=csharpchallenges1+;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
 
         public bool FindUserByUserNameAndPassword(UserModel user)
         {
