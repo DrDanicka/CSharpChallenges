@@ -1,8 +1,7 @@
 ﻿@model IEnumerable<CSharpChallenge.Models.ProblemModelWIthCheckmark>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h4>Problems:</h4>
+<hr />
 <table class="table">
     <thead>
         <tr>
@@ -25,15 +24,26 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Difficulty)
+                @if (item.Difficulty.Trim() == "EASY")
+                {
+                    <span style="color: green">@Html.DisplayFor(modelItem => item.Difficulty)</span>
+                }
+                else if (item.Difficulty.Trim() == "MEDIUM")
+                {
+                    <span style="color: orange">@Html.DisplayFor(modelItem => item.Difficulty)</span>
+                }
+                else if (item.Difficulty.Trim() == "HARD")
+                {
+                    <span style="color: red">@Html.DisplayFor(modelItem => item.Difficulty)</span>
+                }else{
+                    @Html.DisplayFor(modelItem => item.Difficulty)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Done)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "Details", new { id = item.ProblemID })
             </td>
         </tr>
 }

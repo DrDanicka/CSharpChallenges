@@ -1,7 +1,10 @@
-﻿@model IEnumerable<CSharpChallenge.Models.ProblemModel>
+﻿@model IEnumerable<CSharpChallenge.Models.ProblemModelWIthCheckmark>
 
 <h4>Problems:</h4>
 <hr />
+<p>
+    <a class="btn btn-secondary btn-blue mx-2" asp-action="Create">Create New Problem</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -11,6 +14,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Difficulty)
             </th>
+            <th>
             <th></th>
         </tr>
     </thead>
@@ -39,7 +43,9 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id=item.ProblemID })
+                @Html.ActionLink("Edit", "Edit", new { id=item.ProblemID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ProblemID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ProblemID })
             </td>
         </tr>
 }

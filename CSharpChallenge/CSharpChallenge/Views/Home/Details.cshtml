@@ -1,48 +1,52 @@
 ﻿@model CSharpChallenge.Models.ProblemModel
 
 <div>
-    <h4>ProblemModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProblemID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProblemID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Difficulty)
-        </dt>
-        <dd class = "col-sm-10">
+    <h3>@Html.DisplayFor(model => model.Title)</h3>
+    <div>
+        @if (Model.Difficulty.Trim() == "EASY")
+        {
+            <span style="color: green">@Html.DisplayFor(model => model.Difficulty)</span>
+        }
+        else if (Model.Difficulty.Trim() == "MEDIUM")
+        {
+            <span style="color: orange">@Html.DisplayFor(model => model.Difficulty)</span>
+        }
+        else if (Model.Difficulty.Trim() == "HARD")
+        {
+            <span style="color: red">@Html.DisplayFor(model => model.Difficulty)</span>
+        }
+        else
+        {
             @Html.DisplayFor(model => model.Difficulty)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExampleTestCase)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExampleTestCase)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExampleTestCaseSolution)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExampleTestCaseSolution)
-        </dd>
-    </dl>
+        }
+    </div>
+    <div>
+        @Html.Raw(Model.Description)
+    </div>
+    <hr />
+    <h6>Examples:</h6>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.Raw(Model.ExampleTestCase)
+        </div>
+        <div class="col-md-6">
+            @Html.Raw(Model.ExampleTestCaseSolution)
+        </div>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+@if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+{
+    <hr />
+    <form asp-action="SubmitSolution" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Submit your solution (.cs file):</label>
+            <input type="file" name="file" accept=".cs" class="form-control" />
+        </div>
+        <input type="hidden" name="problemId" value="@Model.ProblemID" />
+        <div class="form-group">
+            <input type="submit" value="Submit Solution" class="btn btn-primary" />
+        </div>
+    </form>
+}
