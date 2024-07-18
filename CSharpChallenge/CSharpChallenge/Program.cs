@@ -1,3 +1,4 @@
+using CSharpChallenge.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CSharpChallenge
@@ -10,6 +11,14 @@ namespace CSharpChallenge
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Register the configuration
+            builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+            // Register your DAOs
+            builder.Services.AddTransient<ProblemDAO>();
+            builder.Services.AddTransient<UsersDAO>();
+            builder.Services.AddTransient<SecurityService>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
