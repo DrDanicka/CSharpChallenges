@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CSharpChallenge.Models.ProblemModelWIthCheckmark>
+﻿@model IEnumerable<CSharpChallenge.Models.ProblemModelWithCheckmark>
 
 <h4>Problems:</h4>
 <hr />
@@ -43,9 +43,9 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ProblemID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ProblemID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ProblemID })
+                    @Html.ActionLink("Edit", "Edit", new { problemID = item.ProblemID }) |
+                    @Html.ActionLink("Details", "Details", new { problemID = item.ProblemID }) |
+                    @Html.ActionLink("Delete", "Delete", new { problemID = item.ProblemID })
             </td>
         </tr>
 }
