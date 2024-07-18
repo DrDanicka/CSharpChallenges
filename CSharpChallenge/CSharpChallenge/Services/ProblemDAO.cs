@@ -1,7 +1,4 @@
 ﻿using CSharpChallenge.Models;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace CSharpChallenge.Services
@@ -60,10 +57,10 @@ namespace CSharpChallenge.Services
         /// Retrieves all problems for a specific user, including their completion status.
         /// </summary>
         /// <param name="user">The user for whom to retrieve problems.</param>
-        /// <returns>A list of <see cref="ProblemModelWIthCheckmark"/> objects.</returns>
-        public List<ProblemModelWIthCheckmark> GetAllProblems(UserModel user)
+        /// <returns>A list of <see cref="ProblemModelWithCheckmark"/> objects.</returns>
+        public List<ProblemModelWithCheckmark> GetAllProblems(UserModel user)
         {
-            List<ProblemModelWIthCheckmark> problems = new List<ProblemModelWIthCheckmark>();
+            List<ProblemModelWithCheckmark> problems = new List<ProblemModelWithCheckmark>();
             UserProblemDAO userProblemDAO = new UserProblemDAO(_connectionString);
             string sqlStatement = "SELECT * FROM dbo.Problems";
 
@@ -76,7 +73,7 @@ namespace CSharpChallenge.Services
                 {
                     while (reader.Read())
                     {
-                        ProblemModelWIthCheckmark problem = new ProblemModelWIthCheckmark
+                        ProblemModelWithCheckmark problem = new ProblemModelWithCheckmark
                         {
                             ProblemID = reader.GetInt32(0),
                             Title = reader.GetString(1),

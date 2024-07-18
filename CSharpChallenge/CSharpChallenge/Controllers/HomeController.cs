@@ -139,12 +139,12 @@ namespace CSharpChallenge.Controllers
         /// <summary>
         /// Handles the deletion of a problem. This is available only to the admin.
         /// </summary>
-        /// <param name="id">The ID of the problem to delete.</param>
+        /// <param name="problemID">The ID of the problem to delete.</param>
         /// <returns>A redirect to the admin problem list.</returns>
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int problemID)
         {
             // Deletes problem from database
-            _problemDAO.DeleteProblemByID(id);
+            _problemDAO.DeleteProblemByID(problemID);
 
             return RedirectToAction("AdminProblemList");
         }
