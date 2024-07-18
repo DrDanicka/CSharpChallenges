@@ -1,24 +1,40 @@
-﻿using Microsoft.AspNetCore.Razor.Language.Extensions;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
 namespace CSharpChallenge.Services
 {
+    /// <summary>
+    /// Data Access Object (DAO) for operations related to user and problem associations.
+    /// </summary>
     public class UserProblemDAO
     {
-        string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CSharpChallenges;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        //string connectionString = @"Data Source=charpchallenges.database.windows.net;Initial Catalog=csharpchallenges;User ID=drdanicka;Password=csharpchallenges1+;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private readonly string _connectionString;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserProblemDAO"/> class with the provided database connection string.
+        /// </summary>
+        /// <param name="connectionString">The connection string for the database.</param>
+        public UserProblemDAO(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        /// <summary>
+        /// Checks if a specific problem has been marked as done by a user.
+        /// </summary>
+        /// <param name="problemID">The ID of the problem to check.</param>
+        /// <param name="userID">The ID of the user to check.</param>
+        /// <returns>True if the user has solved the problem, false otherwise.</returns>
         public bool IsProblemDone(int problemID, int userID)
         {
             bool done = false;
-            
 
             string sqlStatement = "SELECT * FROM dbo.UserProblem WHERE userid = @userid AND problemid = @problemid";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand cmd = new SqlCommand(sqlStatement, connection);
 
+                // Adding parameters to the SQL command to prevent SQL injection
                 cmd.Parameters.Add("@userid", System.Data.SqlDbType.Int).Value = userID;
                 cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = problemID;
 
@@ -27,6 +43,7 @@ namespace CSharpChallenge.Services
                     connection.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
+                    // If there are rows in the result, the problem is marked as done by the user
                     if (reader.HasRows)
                     {
                         done = true;
@@ -34,7 +51,7 @@ namespace CSharpChallenge.Services
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.Message); // Exception handling for database connection or query errors
                 }
             }
             return done;
