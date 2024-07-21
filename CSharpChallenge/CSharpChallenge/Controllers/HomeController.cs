@@ -149,6 +149,39 @@ namespace CSharpChallenge.Controllers
             return RedirectToAction("AdminProblemList");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SubmitSolution(IFormFile file, int problemId)
+        {
+            if (file == null || file.Length == 0)
+            {
+                ModelState.AddModelError("", "Please upload a valid .cs file.");
+                var problem = _problemDAO.GetProblemByID(problemId);
+                return View("Details", problem);
+            }
+
+            var filePath = Path.Combine("wwwroot", "uploads", file.FileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // Process the uploaded file
+            /*var result = ProcessSolution(filePath, problemId);
+
+            // Handle result (e.g., display success or failure message)
+            if (result)
+            {
+                ViewBag.Message = "Solution submitted successfully.";
+            }
+            else
+            {
+                ViewBag.Message = "Solution failed.";
+            }*/
+
+            return View("Details");
+        }
+        
         /// <summary>
         /// Displays the error page.
         /// </summary>

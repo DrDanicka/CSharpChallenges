@@ -40,6 +40,7 @@
 {
     <hr />
     <form asp-action="SubmitSolution" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label for="file">Submit your solution (.cs file):</label>
             <input type="file" name="file" accept=".cs" class="form-control" />
