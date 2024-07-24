@@ -3,4 +3,5 @@
 .vs/
 .DS_Store
 **/.idea
+**/uploads
 **/TempProject

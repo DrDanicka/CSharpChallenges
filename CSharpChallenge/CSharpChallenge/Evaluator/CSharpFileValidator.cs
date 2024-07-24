@@ -14,7 +14,7 @@ namespace CSharpChallenge.Evaluator
         /// <returns>True if the file is a valid C# file; otherwise, false.</returns>
         public bool IsValidCsFile(IFormFile file)
         {
-            if (file.Length == 0)
+            if (file is null || file.Length == 0)
             {
                 return false;
             }
