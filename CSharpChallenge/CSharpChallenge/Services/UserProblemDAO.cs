@@ -56,5 +56,42 @@ namespace CSharpChallenge.Services
             }
             return done;
         }
+
+        /// <summary>
+        /// Marks a problem as completed for a specific user by inserting a record into the UserProblem table.
+        /// </summary>
+        /// <param name="problemID">The ID of the problem that is being marked as completed.</param>
+        /// <param name="userID">The ID of the user for whom the problem is being marked as completed.</param>
+        /// <remarks>
+        /// This method inserts a new record into the UserProblem table with the specified userID and problemID.
+        /// If the operation is successful, it indicates that the user has completed the problem.
+        /// If an exception occurs during the execution of the SQL command, the exception message is written to the console.
+        /// </remarks>
+        public void SetProblemAsDoneForUser(int problemID, int userID)
+        {
+            string sqlStatement = @"INSERT dbo.UserProblem (
+                                    userid, 
+                                    problemid) 
+                            VALUES (
+                                    @userid, 
+                                    @problemid)";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(sqlStatement, connection);
+                cmd.Parameters.Add("@userid", System.Data.SqlDbType.Int).Value = userID;
+                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = problemID;
+
+                try
+                {
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
     }
 }
