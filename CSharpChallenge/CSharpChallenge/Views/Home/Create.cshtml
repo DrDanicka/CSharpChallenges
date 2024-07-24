@@ -32,6 +32,16 @@
                 <span asp-validation-for="ExampleTestCaseSolution" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="TestCases" class="control-label"></label>
+                <textarea asp-for="TestCases" class="form-control" rows="6"></textarea>
+                <span asp-validation-for="TestCases" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TestCasesSolution" class="control-label"></label>
+                <textarea asp-for="TestCasesSolution" class="form-control" rows="6"></textarea>
+                <span asp-validation-for="TestCasesSolution" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

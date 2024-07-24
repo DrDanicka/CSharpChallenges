@@ -42,5 +42,17 @@ namespace CSharpChallenge.Models
         /// </summary>
         [Required]
         public string ExampleTestCaseSolution { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the test cases for the problem.
+        /// </summary>
+        [Required]
+        public string TestCases { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the solutions for the test cases.
+        /// </summary>
+        [Required]
+        public string TestCasesSolution { get; set; } = string.Empty;
     }
 }
