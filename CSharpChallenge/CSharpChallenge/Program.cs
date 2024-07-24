@@ -1,3 +1,4 @@
+using CSharpChallenge.Evaluator;
 using CSharpChallenge.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -19,6 +20,7 @@ namespace CSharpChallenge
             builder.Services.AddTransient<ProblemDAO>();
             builder.Services.AddTransient<UsersDAO>();
             builder.Services.AddTransient<SecurityService>();
+            builder.Services.AddTransient<SolutionEvaluator>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
