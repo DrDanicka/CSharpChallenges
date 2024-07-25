@@ -84,14 +84,14 @@ namespace CSharpChallenge.Evaluator
         /// <returns>A string containing an error message if the execution fails or the output is incorrect; otherwise, null.</returns>
         private string? ExecuteCode(string input, string expectedOutput)
         {
-            string projectDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/TempProject");
+            string projectDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "TempProject");
 
             // Run the compiled DLL using dotnet run
             string dllFilePath = Path.Combine(projectDir, "bin", "Release", "net8.0", "TempProject.dll");
 
             Process runProcess = new Process();
             runProcess.StartInfo.FileName = "dotnet";
-            runProcess.StartInfo.Arguments = dllFilePath;
+            runProcess.StartInfo.Arguments = $"\"{dllFilePath}\"";
             runProcess.StartInfo.RedirectStandardInput = true;
             runProcess.StartInfo.RedirectStandardOutput = true;
             runProcess.StartInfo.RedirectStandardError = true;

@@ -32,7 +32,7 @@ namespace CSharpChallenge.Evaluator
         /// <returns>True if the file can be compiled; otherwise, false.</returns>
         public bool IsFileAbleToCompile(string filePath)
         {
-            string projectDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/TempProject");
+            string projectDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "TempProject");
             string fileName = Path.GetFileName(filePath);
             string projectFilePath = Path.Combine(projectDir, "TempProject.csproj");
 
@@ -57,11 +57,12 @@ namespace CSharpChallenge.Evaluator
             // Compile the project using dotnet build
             Process compileProcess = new Process();
             compileProcess.StartInfo.FileName = "dotnet";
-            compileProcess.StartInfo.Arguments = $"build {projectDir} -c Release";
+            compileProcess.StartInfo.Arguments = $"build \"{projectDir}\" -c Release";
             compileProcess.StartInfo.RedirectStandardOutput = true;
             compileProcess.StartInfo.RedirectStandardError = true;
             compileProcess.StartInfo.UseShellExecute = false;
-
+            compileProcess.StartInfo.CreateNoWindow = true;
+            
             compileProcess.Start();
             compileProcess.WaitForExit();
 

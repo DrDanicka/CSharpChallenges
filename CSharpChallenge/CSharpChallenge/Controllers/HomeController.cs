@@ -187,7 +187,7 @@ namespace CSharpChallenge.Controllers
             SolutionEvaluator solutionEvaluator = new SolutionEvaluator(_problemDAO);
             
             // Define the path to the upload folder and retrieve the problem details using the problemID
-            string uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            string uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
             var problem = _problemDAO.GetProblemByID(problemId);
             
             // Check if the submitted file is valid and in .cs format
