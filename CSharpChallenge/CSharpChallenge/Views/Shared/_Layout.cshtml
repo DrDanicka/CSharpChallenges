@@ -21,7 +21,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto"></ul>
                     <ul class="navbar-nav ml-auto">
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <span class="navbar-text">User: @User.Identity.Name</span>
