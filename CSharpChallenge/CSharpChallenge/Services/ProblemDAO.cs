@@ -16,7 +16,7 @@ namespace CSharpChallenge.Services
         /// <param name="configuration">The configuration containing the database connection string.</param>
         public ProblemDAO(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("LocalConnection")!;
+            _connectionString = configuration.GetConnectionString("AzureConnection")!;
         }
 
         /// <summary>
