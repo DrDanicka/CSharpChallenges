@@ -249,3 +249,52 @@ public class UserProblemModel
 }
 ```
 Tento model slúži ako model, kde každý vstup reprezentuje, že používateľ s ID `UserID` má vyriešenú úlohu s ID `ProblemID`.
+
+### Databázy
+
+Každému modelu prislúcha aj databáza. Tabuľky pre jednotlivé modely sa postupne volajú:
+* `Users`
+* `Problems`
+* `UserProblem`
+
+Práca z databázami prebieha v súboroch [UsersDAO.cs](CSharpChallenge/CSharpChallenge/Services/UsersDAO.cs), [ProblemDAO.cs](CSharpChallenge/CSharpChallenge/Services/ProblemDAO.cs) a [UserProblemDAO.cs](CSharpChallenge/CSharpChallenge/Services/UserProblemDAO.cs).
+
+Medzi základné funkcie z každého modulu patrí:
+
+### UsersDAO
+
+```cs
+public bool FindUserByUserNameAndPassword(UserModel user) {...}
+public bool FindUserByUserName(UserModel user) {...}
+public bool FindUserByUserNameOrEmail(UserModel user) {...}
+public void CreateUser(UserModel user) {...}
+public UserModel GetUserByName(string username) {...}
+```
+
+### ProblemDAO
+
+```cs
+public List<ProblemModel> GetAllProblems() {...}
+public List<ProblemModelWithCheckmark> GetAllProblems(UserModel user) {...}
+public ProblemModel GetProblemByID(int problemID) {...}
+public void CreateProblem(ProblemModel problem) {...}
+public void UpdateProblem(ProblemModel problem) {...}
+public void DeleteProblemByID(int problemID) {...}
+public Tuple<string, string> GetTestCasesByID(int problemID) {...}
+public bool IsProblemDoneByUser(int problemID, int userID) {...}
+public void SetProblemAsDoneForUser(int problemID, int userID) {...}
+```
+
+### UserProblemDAO
+
+```cs
+public bool IsProblemDone(int problemID, int userID) {...}
+public void SetProblemAsDoneForUser(int problemID, int userID) {...}
+```
+
+Tieto funkcie sú teda výlučne na prácu s databázou. Názvy funkcií sú samovysvetľujúce funkcionalitu funkcií. Pre bližšie vysvetlenie funkcií sú v kóde podrobné dokumentačné komentáre.
+
+Databáza, ronako ako aj webová služba, je hostovaná pomocou študentského účtu na *Microsoft Azure*.
+
+## View
+
