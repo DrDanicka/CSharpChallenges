@@ -84,9 +84,7 @@ namespace CSharpChallenge.Controllers
             ProblemModel problem = _problemDAO.GetProblemByID(problemID);
 
             // Set Description and Test cases to Markdown
-            problem.Description = Markdig.Markdown.ToHtml(problem.Description);
-            problem.ExampleTestCase = Markdig.Markdown.ToHtml(problem.ExampleTestCase);
-            problem.ExampleTestCaseSolution = Markdig.Markdown.ToHtml(problem.ExampleTestCaseSolution);
+            problem = ConvertProblemToMarkdown(problem);
 
             return View("Details", problem);
         }
